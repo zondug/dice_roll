@@ -1,11 +1,5 @@
 extends RigidBody2D
 
-@onready var icon_attack = preload("res://DiceFaces/attack.png")
-@onready var icon_shield = preload("res://DiceFaces/shield.png")
-@onready var icon_skill = preload("res://DiceFaces/skill.png")
-@onready var icon_magic = preload("res://DiceFaces/magic.png")
-@onready var dice_faces = [icon_attack, icon_shield, icon_skill, icon_magic]
-
 @export_group("Dice Face Change Settings")
 @export var min_face_change_interval: float = 1.5  # minimum face change interval
 @export var max_face_change_interval: float = 0.8  # maximum face change interval
@@ -19,6 +13,8 @@ var DiceSize = Vector2(200, 200)
 var is_rolling = false
 var next_face_change = 0.0
 var original_dice_scale: Vector2
+var current_face: Texture2D
+var dice_pool: DicePool
 
 func _ready():
 	gravity_scale = 0.0
@@ -33,7 +29,6 @@ func _ready():
 	$DiceFrame.scale = DiceSize/$DiceFrame.texture.get_size()
 	$DiceFace.scale = DiceSize/$DiceFace.texture.get_size() * 0.9
 	original_dice_scale = scale
-	new_face()
 
 func _physics_process(delta):
 	if is_rolling:
@@ -79,7 +74,7 @@ func roll_the_dice():
 	
 	var final_face = new_face()
 	is_rolling = false
-	return final_face
+	return dice_pool.get_face_name(final_face)
 
 func animate_scale():
 	var tween = create_tween()
@@ -99,9 +94,16 @@ func animate_scale():
 	
 	return tween
 
-
 func new_face():
-	var the_face = dice_faces[randi_range(0, dice_faces.size()-1)]
-	$DiceFace.texture = the_face
+	if not dice_pool:
+		push_error("Dice pool not set!")
+		return null
+		
+	var faces = dice_pool.get_faces()
+	current_face = faces[randi() % faces.size()]
+	$DiceFace.texture = current_face
 	$DiceFace.scale = DiceSize/$DiceFace.texture.get_size() * 0.9
-	return the_face
+	return current_face
+
+func get_current_face() -> String:
+	return dice_pool.get_face_name(current_face) if dice_pool else ""

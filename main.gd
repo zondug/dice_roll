@@ -5,8 +5,10 @@ extends Node2D
 @export var dice_spacing: float = 250.0
 
 var dice_list = []
+var dice_pool: DicePool
 
 func _ready():
+	dice_pool = DicePool.new()
 	setup()
 
 func reset_dices():
@@ -22,6 +24,7 @@ func setup():
 		var dice = preload("res://Dice.tscn").instantiate()
 		add_child(dice)
 		dice.position = start_pos + Vector2(i * dice_spacing, 0)
+		dice.dice_pool = dice_pool
 		dice_list.append(dice)
 
 func _on_button_pressed():
