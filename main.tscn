@@ -21,24 +21,6 @@ b = Vector2(2.08165e-12, 1000)
 [node name="DiceRoll" type="Node2D"]
 script = ExtResource("1_oqlcj")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.2, 0.2)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 0
-offset = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(4, 4)
-transform = Transform2D(4, 2.08165e-12, 2.08165e-12, 4, 2.08165e-12, 2.08165e-12)
-follow_viewport_enabled = true
-
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 549.5
-offset_top = 315.5
-offset_right = 687.5
-offset_bottom = 377.5
-theme_override_font_sizes/font_size = 20
-text = "Reset"
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_priority = 5.0
 physics_material_override = SubResource("PhysicsMaterial_jhk8p")
@@ -67,5 +49,24 @@ shape = SubResource("SegmentShape2D_aluwy")
 [node name="WallBottom" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 769)
 shape = SubResource("SegmentShape2D_v7xu1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.2, 0.2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+offset = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(4, 4)
+transform = Transform2D(4, 2.08165e-12, 2.08165e-12, 4, 2.08165e-12, 2.08165e-12)
+follow_viewport_enabled = true
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+z_index = 10
+offset_left = -100.0
+offset_top = 250.0
+offset_right = 100.0
+offset_bottom = 300.0
+theme_override_font_sizes/font_size = 20
+text = "Reset"
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

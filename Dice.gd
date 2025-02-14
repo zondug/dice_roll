@@ -14,7 +14,11 @@ var is_rolling = false
 var next_face_change = 0.0
 var original_dice_scale: Vector2
 var current_face: Texture2D
-var dice_pool: DicePool
+var dice_pool: DicePool:
+	set(value):
+		dice_pool = value
+		if value:  # dice_pool이 설정되면 new_face() 호출
+			new_face()
 
 func _ready():
 	gravity_scale = 0.0
@@ -26,8 +30,9 @@ func _ready():
 	physics_material.friction = 0.5
 	physics_material_override = physics_material
 	
+	# Set scales once at initialization
 	$DiceFrame.scale = DiceSize/$DiceFrame.texture.get_size()
-	$DiceFace.scale = DiceSize/$DiceFace.texture.get_size() * 0.9
+	$DiceFrame/DiceFace.scale = DiceSize/$DiceFrame/DiceFace.texture.get_size() * 0.75
 	original_dice_scale = scale
 
 func _physics_process(delta):
@@ -101,8 +106,7 @@ func new_face():
 		
 	var faces = dice_pool.get_faces()
 	current_face = faces[randi() % faces.size()]
-	$DiceFace.texture = current_face
-	$DiceFace.scale = DiceSize/$DiceFace.texture.get_size() * 0.9
+	$DiceFrame/DiceFace.texture = current_face
 	return current_face
 
 func get_current_face() -> String:
