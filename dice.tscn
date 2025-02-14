@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqhafeihkoneh"]
+
+[ext_resource type="Script" path="res://Dice.gd" id="1_oi5im"]
+[ext_resource type="Texture2D" uid="uid://otkh5j3ifcqn" path="res://dice_frame.png" id="2_hxv04"]
+[ext_resource type="Texture2D" uid="uid://ffchxkda4f8x" path="res://DiceFaces/attack.png" id="3_hu7qp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4x8po"]
+size = Vector2(254, 254)
+
+[node name="Dice" type="RigidBody2D"]
+collision_priority = 5.0
+mass = 1.5
+gravity_scale = 0.0
+continuous_cd = 2
+linear_damp = 3.0
+script = ExtResource("1_oi5im")
+
+[node name="DiceFrame" type="Sprite2D" parent="."]
+texture = ExtResource("2_hxv04")
+
+[node name="DiceFace" type="Sprite2D" parent="."]
+texture = ExtResource("3_hu7qp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_4x8po")
