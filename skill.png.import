@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://h1152om5x8ym"
-path="res://.godot/imported/skill.png-deb6baa21c69b7158ae8f4a37e9a937c.ctex"
+path="res://.godot/imported/skill.png-41496bb9786a8d2b1d668427186bd4a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://DiceFaces/skill.png"
-dest_files=["res://.godot/imported/skill.png-deb6baa21c69b7158ae8f4a37e9a937c.ctex"]
+source_file="res://skill.png"
+dest_files=["res://.godot/imported/skill.png-41496bb9786a8d2b1d668427186bd4a5.ctex"]
 
 [params]
 
